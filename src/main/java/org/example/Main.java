@@ -2,13 +2,16 @@ package org.example;
 
 import org.example.exception.UserNotFoundException;
 import org.example.model.User;
+import org.example.repository.InMemoryUserRepository;
+import org.example.repository.UserRepository;
 import org.example.service.UserService;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        UserService userService = new UserService();
+        UserRepository repository = new InMemoryUserRepository();
+        UserService userService = new UserService(repository);
     try{
         User user1 = new User(1L, "Pamela", "pame@email.com", true);
         User user2 = new User(1L, "Ana", "ana@email.com", true);
