@@ -24,6 +24,12 @@ public class UserService {
                     "User with id "+ user.getId() + " already exists"
             );
         }
+        if (user.getEmail() == null || user.getEmail().isBlank()){
+            throw new IllegalArgumentException("Email cannot be empty");
+        }
+        if (!user.getEmail().contains("@")){
+            throw new IllegalArgumentException("Invalid email format");
+        }
         userRepository.save(user);
     }
 
@@ -33,5 +39,18 @@ public class UserService {
     public User findUserOrThrow(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+    public void updateEmail(Long id, String newEmail){
+        User user = findUserOrThrow(id);
+        if (!user.isActive()){
+            throw new IllegalStateException("Cannot update email of inactive user");
+        }
+        if (newEmail == null || newEmail.isBlank()){
+            throw new IllegalArgumentException("Email cannot be empty");
+        }
+        if (!newEmail.contains("@")){
+            throw new IllegalArgumentException("Invalid email format");
+        }
+        user.changeEmail(newEmail);
     }
 }

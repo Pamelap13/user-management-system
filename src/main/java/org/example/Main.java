@@ -16,7 +16,13 @@ public class Main {
         User user1 = new User(1L, "Pamela", "pame@email.com", true);
         User user2 = new User(1L, "Ana", "ana@email.com", true);
         userService.addUser(user1);
-        userService.addUser(user2);
+
+
+        userService.updateEmail(1L, "nuevo@email.com");
+        System.out.println(userService.findUserOrThrow(1L).getEmail());
+        user1.desactivate();
+
+        userService.updateEmail(1L, "otro@email.com"); // debe fallar
     }catch (IllegalArgumentException e){
         System.out.println(e.getMessage());
     }

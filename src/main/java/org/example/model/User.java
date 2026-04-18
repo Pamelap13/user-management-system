@@ -39,10 +39,10 @@ public class User {
         this.email = email;
     }
 
-    private void desactivate(){
+    public void desactivate(){
         this.active= false;
     }
-    private void activate(){
+    public void activate(){
         this.active= true;
     }
 
@@ -56,5 +56,9 @@ public class User {
     @Override
     public int hashCode(){
         return Objects.hash(id);
+    }
+
+    public void changeEmail(String newEmail) {
+        this.email = newEmail;
     }
 }
