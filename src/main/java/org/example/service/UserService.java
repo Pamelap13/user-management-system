@@ -5,6 +5,7 @@ import org.example.model.User;
 import org.example.repository.UserRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,5 +53,20 @@ public class UserService {
             throw new IllegalArgumentException("Invalid email format");
         }
         user.changeEmail(newEmail);
+    }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+    public List<User> getActiveUsers(){
+        return userRepository.findAll().stream()
+                .filter(User::isActive)
+                .toList();
+    }
+
+    public Optional<User> findByEmail(String email){
+        return userRepository.findAll().stream()
+                .filter(user -> user.getEmail().equalsIgnoreCase(email))
+                .findFirst();
     }
 }

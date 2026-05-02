@@ -2,9 +2,7 @@ package org.example.repository;
 
 import org.example.model.User;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class InMemoryUserRepository implements UserRepository{
     private final Map<Long, User> users = new HashMap<>();
@@ -21,5 +19,10 @@ public class InMemoryUserRepository implements UserRepository{
     @Override
     public boolean existsById(Long id) {
         return users.containsKey(id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return new ArrayList<>(users.values());
     }
 }

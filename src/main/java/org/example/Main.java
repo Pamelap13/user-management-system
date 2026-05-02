@@ -13,16 +13,21 @@ public class Main {
         UserRepository repository = new InMemoryUserRepository();
         UserService userService = new UserService(repository);
     try{
-        User user1 = new User(1L, "Pamela", "pame@email.com", true);
-        User user2 = new User(1L, "Ana", "ana@email.com", true);
-        userService.addUser(user1);
+        userService.addUser(new User(1L, "Pamela", "pamela@email.com", true));
+        userService.addUser(new User(2L, "Ana", "ana@email.com", false));
+        userService.addUser(new User(3L, "Luis", "luis@email.com", true));
 
+        System.out.println("All users");
+        userService.getAllUsers().forEach(
+                u -> System.out.println(u.getName())
+        );
 
-        userService.updateEmail(1L, "nuevo@email.com");
-        System.out.println(userService.findUserOrThrow(1L).getEmail());
-        user1.desactivate();
-
-        userService.updateEmail(1L, "otro@email.com"); // debe fallar
+        System.out.println("\nActive users");
+        userService.getActiveUsers().forEach(
+                u-> System.out.println(u.getName())
+        );
+        userService.findByEmail("luis@email.com")
+                .ifPresent(u-> System.out.println("\nfound: " + u.getName()));
     }catch (IllegalArgumentException e){
         System.out.println(e.getMessage());
     }
