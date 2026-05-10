@@ -22,8 +22,10 @@ public class Main {
                 u -> System.out.println(u.getName())
         );
 
-        System.out.println("\nActive users");
-        userService.getActiveUsers().forEach(
+
+        userService.deleteUser(3L);
+        System.out.println("\nAfter delete");
+        userService.getAllUsers().forEach(
                 u-> System.out.println(u.getName())
         );
         userService.findByEmail("luis@email.com")
