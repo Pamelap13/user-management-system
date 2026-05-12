@@ -1,6 +1,8 @@
 package org.example;
 
+import org.example.dto.UserResponseDTO;
 import org.example.exception.UserNotFoundException;
+import org.example.mapper.UserMapper;
 import org.example.model.User;
 import org.example.repository.InMemoryUserRepository;
 import org.example.repository.UserRepository;
@@ -42,6 +44,10 @@ public class Main {
         System.out.println(isActiveUser.test(user));
         System.out.println(getEmail.apply(user));
         printName.accept(user);
+
+        UserResponseDTO dto = UserMapper.toDTO(user);
+        System.out.println("dto " + dto.getName());
+        System.out.println("dto " + dto.getEmail());
     }catch (IllegalArgumentException e){
         System.out.println(e.getMessage());
     }
